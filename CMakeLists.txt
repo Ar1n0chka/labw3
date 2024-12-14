@@ -48,9 +48,8 @@ else ()
     target_compile_options(helloworld PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-    # target_compile_options(test_version PRIVATE
-    #     -Wall -Wextra -pedantic -Werror
-    # )
+    # 
+    
 endif()
 
 
