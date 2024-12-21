@@ -17,7 +17,8 @@ class VecContainer
         capacity = copiedContainer.capacity;
         size = copiedContainer.size;
     }
-
+    
+    
     ~VecContainer()
     {
 

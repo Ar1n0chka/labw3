@@ -6,6 +6,7 @@ class Node
 public:
     T data;
     Node<T> *next;
+    Node(){};
     
     Node(T _data, Node<T> *_next = nullptr)
     { 
@@ -15,6 +16,38 @@ public:
 };
 
 
+template <typename T>
+class iterator
+{
+    public:
+    iterator(){};
+    Node<T>  *node;
+    iterator(Node<T> *_node)    
+    {
+        node = _node;
+    }
+
+    iterator &operator++ ()
+    {
+        node = node->next;
+        return *this;
+    }
+
+    iterator &operator++ (int)
+    {
+        node = node->next;
+        return *this;
+    }
+    iterator &operator+ (int index)
+    {
+        for(int i = 0; i< index; i++)
+        {
+            node = node->next;
+        }
+        return *this;
+    }
+};
+
 template<typename T>
 class ListOne
 {
@@ -22,11 +55,40 @@ public:
 
     Node<T> *first;
     Node<T> *last;
+    size_t size = 0;
+    iterator<T> it_first;
+    iterator<T> it_last;
 
     ListOne()
+    {   
+        first = last = nullptr;
+        it_first = iterator<T>(first);
+        it_last = iterator<T>(last);
+    }
+
+    ListOne &operator=(const ListOne &right)
     {
         first = last = nullptr;
+        auto temp = right.it_first;
+        for (auto i = temp; i.node != nullptr; i++)
+        {
+            push_back(i.node->data);
+        }
+        return *this;
     }
+    
+    iterator<T> begin()
+    {
+        return it_first;
+    }
+
+    iterator<T> end()
+    {
+        return it_last;
+    }
+
+
+
 
     ~ListOne()
     {
@@ -44,7 +106,7 @@ public:
 
     bool is_empty() 
     {
-        return first == nullptr;
+        return (first == nullptr);
     }
 
     void push_back(T data) 
@@ -54,10 +116,13 @@ public:
         {
             first = p;
             last = p;
+            it_first = iterator<T>(first);
+            it_last = iterator<T>(last);
             return;
         }
         last->next = p;
         last = p;
+        it_last = iterator<T>(last);
     }
 
     void PrintListOne() 
@@ -81,6 +146,7 @@ public:
         {
             newNode->next = first;
             first = newNode;
+            it_first = iterator<T>(first);
             return;
         }
         while (counter != index-1)
@@ -120,13 +186,14 @@ public:
 
     int GetSize()
     {
-            int count = 0;
+        int count = 0;
         Node<T> *current = first;
         while (current != nullptr)
         {
             count++;
             current = current->next;
         }
+        size = count;
         return count;
     }
 };

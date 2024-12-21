@@ -42,6 +42,7 @@ int main ()
     
     VecContainer arr;
     ListOne<int> list;
+    ListOne<int> list2;
     ListTwo<int> listTwo;
     
     std::cout << "Массив: " << std::endl;
@@ -83,6 +84,9 @@ int main ()
     list.insert(4, 20);
     list.push_back(30);
     list.PrintListOne();
+    std::cout << "Copy of list:\t" ;
+    list2 = list;
+    list2.PrintListOne();
     std::cout<< std::endl;
 
     std::cout << "Двунаправленный список: " << std::endl;
@@ -224,3 +228,9 @@ int main ()
 //     cout << l[0]->val << endl;
 //     return 0;
 // }
+
+
+// ListOne a;
+// a.push_back(10);
+// ListOne b;
+// b = a;
